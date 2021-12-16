@@ -9,6 +9,15 @@
 </head>
 
 <body>
+    <div>
+        {% if current_user.is_authenticated %}
+        <p>
+            <span>{{ current_user.username }}</span> -
+            <span><a href="{{ url_for('auth.logout') }}">ログアウト
+                </a></span>
+        </p>
+        {% endif %}
+    </div>
     <!-- contentを継承先で実装する -->
     {% block content %}{% endblock %}
 </body>
