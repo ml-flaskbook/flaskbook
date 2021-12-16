@@ -50,3 +50,21 @@ $ pip install -r requirements.txt
 (venv) $ flask db migratre
 (venv) $ flask db upgrade
 ```
+
+## 学習済みモデルを取得する
+
+```
+(venv) $ python
+>>> import torch
+>>> import torchvision
+>>> model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
+>>> torch.save(model, "model.pt")
+```
+
+`model.pt`を`apps/detector`配下へ移動する
+
+## テスト実行
+
+```
+$ pytest tests/detector
+```
