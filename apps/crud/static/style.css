@@ -1,0 +1,10 @@
+table {
+    /* 隣接するボーダーを重ねて1本にして表示する */
+    border-collapse: collapse;
+}
+table,
+th,
+td {
+    /* 1pxの実線にして色を調節する */
+    border: 1px solid #c0c0c0;
+}
