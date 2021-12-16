@@ -1,9 +1,17 @@
 {% extends "detector/base.html" %}
 {% block content %}
-{% for user_image in user_images %}　
-<div class="card col-md-7 dt-image-content">　
+<!-- 画像アップロード画面へのリンクを追加する -->
+<div class="col-md-10 text-right dt-image-register-btn">
+    <a href="{{ url_for('detector.upload_image') }}" class="btn btn-primary">画像新規登録</a>
+</div>
+<!-- 画像一覧を表示する -->
+{% for user_image in user_images %}
+<div class="card col-md-7 dt-image-content">
+    <header class="d-flex justify-content-between">
+        <div class="dt-image-username">{{ user_image.User.username }}</div>
+    </header>
     <section>
-        <img src="{{ user_image.UserImage.image_url }}" alt="画像" />
+        <img src="{{ url_for('detector.image_file', filename=user_image.UserImage.image_path) }}" alt="アップロード画像" />
     </section>
 </div>
 {% endfor %}
