@@ -13,6 +13,21 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">　
         <div class="container">
             <a class="navbar-brand " href="{{ url_for('detector.index') }}">detector</a>
+            <!-- 画像検索フォームを追加する -->
+            {% if url_for(request.endpoint) == url_for('detector.index') or
+            url_for(request.endpoint) == url_for('detector.search') %}
+            <div class="btn-group">
+                <form method="GET" action="{{ url_for('detector.search') }}" name="dtSearchForm">
+                    {% if request.args.get("search") %}
+                    <input type="search" id="dt-search" class="form-control col-md-12 dt-search" placeholder="検索"
+                        name="search" value="{{ request.args.get('search') }}" />
+                    {% else %}
+                    <input type="search" id="dt-search" class="form-control col-md-12 dt-search" placeholder="検索"
+                        name="search" />
+                    {% endif %}
+                </form>
+            </div>
+            {% endif %}
             <ul class="navbar-nav">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
@@ -23,12 +38,10 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.signup') }}">
-                        新規登録</a>
+                    <a class="nav-link" href="{{ url_for('auth.signup') }}">新規登録</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.login') }}">
-                        ログイン</a>
+                    <a class="nav-link" href="{{ url_for('auth.login') }}">ログイン</a>
                 </li>
                 {% endif %}
             </ul>
