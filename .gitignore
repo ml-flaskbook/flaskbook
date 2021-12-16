@@ -216,3 +216,4 @@ cython_debug/
 
 migrations/
 *.sqlite
+apps/detector/model.pt
