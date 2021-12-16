@@ -1,0 +1,27 @@
+{% extends "crud/base.html" %}
+{% block title %}ユーザー新規作成{% endblock %}
+{% block content %}
+<h2>ユーザー新規作成</h2>
+<form action="{{ url_for('crud.create_user') }}" method="POST" novalidate="novalidate">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.username.label }} {{ form.username(placeholder="ユーザー名") }}
+    </p>
+    {% for error in form.username.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    <p>
+        {{ form.email.label }} {{ form.email(placeholder="メールアドレス") }}
+    </p>
+    {% for error in form.email.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    <p>
+        {{ form.password.label }} {{ form.password(placeholder="パスワード") }}
+    </p>
+    {% for error in form.password.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
