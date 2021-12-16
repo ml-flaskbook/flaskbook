@@ -1,27 +1,25 @@
-{% extends "auth/base.html" %}
+{% extends "detector/base.html" %}
+
 {% block title %}ユーザー新規登録{% endblock %}
+
 {% block content %}
-<h2>ユーザー新規登録</h2>
-<form action="{{ url_for('auth.signup', next=request.args.get('next')) }}" method="POST" novalidate="novalidate">
-    {% for message in get_flashed_messages() %}
-    <p style="color: red;">{{ message }}</p>
-    {% endfor %}
-    {{ form.csrf_token }}
-    <p>
-        {{ form.username.label }}
-        {{ form.username(size=30, placeholder="ユーザー名") }}
-    </p>
-    {% for error in form.username.errors %}
-    <span style="color: red;">{{ error }}</span>
-    {% endfor %}
-    <p>{{ form.email.label }} {{ form.email(placeholder="メールアドレス") }}</p>
-    {% for error in form.email.errors %}
-    <span style="color: red;">{{ error }}</span>
-    {% endfor %}
-    <p>{{ form.password.label }} {{ form.password(placeholder="パスワード") }}</p>
-    {% for error in form.password.errors %}
-    <span style="color: red;">{{ error }}</span>
-    {% endfor %}
-    <p>{{ form.submit() }}</p>
-</form>
+<div class="mx-auto dt-auth-main">
+    <div class="card dt-auth-signup">
+        <header>ユーザー新規登録</header>
+        <section>
+            <form method="post" action="{{ url_for('auth.signup', next=request.args.get('next')) }}"
+                class="form-signin">
+                {{ form.csrf_token }}
+                {% for message in get_flashed_messages() %}
+                <div class="dt-auth-flash">{{ message }}</div>
+                {% endfor %}
+
+                {{ form.username(size=30, class="form-control dt-auth-input", placeholder="ユーザー名") }}
+                {{ form.email(class="form-control dt-auth-input",placeholder="メールアドレス") }}
+                {{ form.password(class="form-control dt-auth-input",placeholder="パスワード") }}
+                {{ form.submit(class="btn btn-md btn-primary btn-block dt-auth-btn") }}
+            </form>
+        </section>
+    </div>
+</div>
 {% endblock %}
