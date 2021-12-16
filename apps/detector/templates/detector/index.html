@@ -1,5 +1,17 @@
 {% extends "detector/base.html" %}
 {% block content %}
+
+<!-- flashエラーを表示する -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li class="flash">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
 <!-- 画像アップロード画面へのリンクを追加する -->
 <div class="col-md-10 text-right dt-image-register-btn">
     <a href="{{ url_for('detector.upload_image') }}" class="btn btn-primary">画像新規登録</a>
@@ -9,10 +21,39 @@
 <div class="card col-md-7 dt-image-content">
     <header class="d-flex justify-content-between">
         <div class="dt-image-username">{{ user_image.User.username }}</div>
+        <!-- 物体検知フォームを追加する -->
+        <div class="d-flex flex-row-reverse">
+            <!-- 削除ボタンのフォームを追加する -->
+            <div class="p-2">
+                <form action="{{ url_for('detector.delete_image', image_id= user_image.UserImage.id) }}" method="POST">
+                    {{ delete_form.csrf_token }}
+                    {% if current_user.id == user_image.User.id %}
+                    {{ delete_form.submit(class="btn btn-danger") }}
+                    {% else %}
+                    {{ delete_form.submit(class="btn btn-danger", disabled="disabled") }}
+                    {% endif %}
+            </div>
+            <div class="p-2">
+                <form action="{{ url_for('detector.detect', image_id=user_image.UserImage.id) }}" method="POST">
+                    {{ detector_form.csrf_token }}
+                    {% if current_user.id == user_image.User.id and user_image.UserImage.is_detected == False %}
+                    {{detector_form.submit(class="btn btn-primary")}}
+                    {% else %}
+                    {{ detector_form.submit(class="btn btn-primary",disabled="disabled")}}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
     </header>
     <section>
         <img src="{{ url_for('detector.image_file', filename=user_image.UserImage.image_path) }}" alt="アップロード画像" />
     </section>
+    <!-- タグ情報を表示する -->
+    <footer>
+        {% for tag in user_image_tag_dict[user_image.UserImage.id] %}
+        #{{tag.tag_name }}
+        {% endfor %}
+    </footer>
 </div>
 {% endfor %}
 {% endblock %}
