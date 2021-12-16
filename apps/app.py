@@ -43,4 +43,10 @@ def create_app(config_key):
     # register_blueprintを使いviewsのauthをアプリへ登録する
     app.register_blueprint(auth_views.auth, url_prefix="/auth")
 
+    # これから作成するdetectorパッケージからviewsをimportする
+    from apps.detector import views as dt_views
+
+    # register_blueprintを使いviewsのdtをアプリへ登録する
+    app.register_blueprint(dt_views.dt)
+
     return app
