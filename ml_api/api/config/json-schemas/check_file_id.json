@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+         "file_id": {
+            "type": "string",
+            "maximum": 120,
+            "minimum": 1
+        }
+      },
+    "required": [
+    "file_id"
+ ]
+}

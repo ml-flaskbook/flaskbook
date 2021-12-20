@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+         "dir_name": {
+            "type": "string",
+            "maximum": 120,
+            "minimum": 1
+        }
+      },
+    "required": [
+    "dir_name"
+ ]
+}
