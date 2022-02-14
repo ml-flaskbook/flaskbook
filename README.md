@@ -37,6 +37,12 @@ $ source venv/bin/activate
 > venv\Scripts\Activate.ps1
 ```
 
+## 環境変数ファイル設置
+
+```
+$ cp -p .env.local .env
+```
+
 ## パッケージインストール
 
 ```
@@ -62,6 +68,12 @@ $ pip install -r requirements.txt
 ```
 
 `model.pt`を`apps/detector`配下へ移動する
+
+## アプリケーション起動
+
+```
+(venv) $ flask run
+```
 
 ## テスト実行
 
