@@ -130,7 +130,7 @@ def contact_complete():
 
         if not email:
             flash("メールアドレスは必須です")
-        is_valid = False
+            is_valid = False
 
         try:
             validate_email(email)
@@ -155,7 +155,7 @@ def contact_complete():
         )
 
         # 問い合わせ完了エンドポイントへリダイレクトする
-        flash("問い合わせありがとうございました。")
+        flash("問い合わせ内容はメールにて送信しました。問い合わせありがとうございます。")
 
         # contactエンドポイントへリダイレクトする
         return redirect(url_for("contact_complete"))
