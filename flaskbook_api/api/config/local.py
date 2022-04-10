@@ -1,6 +1,4 @@
-from flaskbook_api.api.config.base import Config
-
-
-class LocalConfig(Config):
-    TESTING = True
-    DEBUG = True
+TESTING = True
+DEBUG = True
+SECRET_KEY = ""
+DATABASE_URI = ""

@@ -5,78 +5,25 @@
 $ git clone https://github.com/ml-flaskbook/flaskbook.git
 ```
 
-## 仮想環境を作成する
-
-### Mac/Linux
+## Build and Run Docker Image
 
 ```
-$ python3 -m venv venv
-$ source venv/bin/activate
+$ docker build ./ -t flaskbook-api
+# ローカルで動作確認時（ローカルをマウント）
+$ docker run  -p 15000:5000 --name flaskbook-api -v $(pwd)/flaskbook_api/api:/opt/flaskbook_api/api flaskbook-api
 ```
 
-### Widows（PowerShell）
-
-スクリプトを実行するために、Windows PowerShellで次のコマンドを実行し、実行ポリシーを変更する。
+## Check
 
 ```
-> PowerShell Set-ExecutionPolicy RemoteSigned CurrentUser
+$ curl -X POST http://localhost:15000/prediction_example -H "Content-Type: application/json" -d '{"filename":"test.jpg"}'
 ```
 
-ポリシーを変更したら、次のコマンドを実行する
-
 ```
-> py -m venv venv
-> venv\Scripts\Activate.ps1
-```
-
-## 環境変数ファイル設置
-
-```
-$ cp -p .env.local .env
-```
-
-## パッケージインストール
-
-```
-(venv) $ pip install -r requirements.txt
-```
-
-## DBマイグレート
-
-```
-(venv) $ flask db init
-(venv) $ flask db migrate
-(venv) $ flask db upgrade
-```
-
-## 学習済みモデルを取得する
-
-```
-(venv) $ python
->>> import torch
->>> import torchvision
->>> model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
->>> torch.save(model, "model.pt")
-```
-
-`model.pt`を`apps/detector`配下へ移動する
-
-## アプリケーション起動
-
-```
-(venv) $ flask run
-```
-
-## テスト実行
-
-```
-$ pytest tests/detector
-```
-
-## 第2部から読み始める場合
-
-下記コマンドで第1部までの状態に切り替えられます。
-
-```
-$ git checkout -b part1 tags/part1
+{
+  "input": {
+    "filename": "test.jpg"
+  },
+  "result": "OK"
+}
 ```
